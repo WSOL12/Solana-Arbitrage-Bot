@@ -77,7 +77,7 @@ async function run() {
         // merge quote0 and quote1 response
         let mergedQuoteResp = quote0Resp.data;
         mergedQuoteResp.outputMint = quote1Resp.data.outputMint;
-        mergedQuoteResp.outAmount = String(quote0Params.amount - jitoTip);
+        mergedQuoteResp.outAmount = String(quote0Params.amount);
         mergedQuoteResp.otherAmountThreshold = String(quote0Params.amount - jitoTip);
         mergedQuoteResp.priceImpactPct = "0";
         mergedQuoteResp.routePlan = mergedQuoteResp.routePlan.concat(quote1Resp.data.routePlan)
