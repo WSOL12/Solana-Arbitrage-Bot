@@ -1,7 +1,7 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = "docker"
 
 host_vagrantfile = "./Vagrantfile.dockerhost"
-force_host_vm = TRUE
+force_host_vm = true
 
 Vagrant.configure("2") do |config|
 
