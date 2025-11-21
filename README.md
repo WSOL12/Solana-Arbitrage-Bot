@@ -59,7 +59,7 @@ You may still incur losses due to:
 
 See this [example transaction](https://solscan.io/tx/2XpqezwMdDfuttLcSWEHA8iVU1a92W36kEwcS5GFEUk8T5HK4fjaFBbFk9roh64khmsbSnDUV1ftdYSZGLqBM4CW) demonstrating the need for program-level profit validation:
 
-![Transaction Example](./img/tx-example.png)
+![Transaction Example](./img/example.png)
 
 ### Program Implementation Requirements
 
