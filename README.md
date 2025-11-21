@@ -1,4 +1,4 @@
-# Solana DEX Arbitrage Bot
+# Solana Arbitrage Bot
 
 A high-performance arbitrage trading bot for Solana DEX markets, leveraging Jito bundles for fast transaction execution.
 
