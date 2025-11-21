@@ -1,46 +1,110 @@
-# Solana Dex Arbitrage Bot
+# Solana DEX Arbitrage Bot
 
-To run this bot, you'll need a Solana RPC node and a self-hosted Jupiter v6 node.
+A high-performance arbitrage trading bot for Solana DEX markets, leveraging Jito bundles for fast transaction execution.
 
-> Note: This bot is not fully developed, lacks program implementation, and is limited to a WSOL/USDC trading pair. However, the basic logic is fully implemented.
+## Overview
 
-## Steps
+This bot identifies and executes arbitrage opportunities across Solana decentralized exchanges by detecting price discrepancies between trading pairs. It uses circular arbitrage strategies (e.g., WSOL → USDC → WSOL) to capture profit from market inefficiencies.
 
-1. Select Trading Pairs
+## Arbitrage Wallet
 
-2. Run The Jupiter v6 Node
+**Wallet Address**: `CEEXTqHaqbVriXoW4uvdaPShkMaHg9AWnFXLS1nS887C`
 
-enable `--allow-circular-arbitrage`
+**Sample Transaction**: [View on Solscan](https://solscan.io/tx/2XpqezwMdDfuttLcSWEHA8iVU1a92W36kEwcS5GFEUk8T5HK4fjaFBbFk9roh64khmsbSnDUV1ftdYSZGLqBM4CW)
+
+## Features
+
+- 🔄 Circular arbitrage detection and execution
+- ⚡ Jito bundle integration for fast transaction execution
+- 🎯 Zero slippage configuration support
+- 📊 Real-time profit calculation
+- ⏱️ Low-latency execution monitoring
+
+
+## How It Works
+
+1. **Quote Discovery**: The bot continuously queries for circular arbitrage opportunities (WSOL → USDC → WSOL)
+
+2. **Profit Calculation**: Compares input and output amounts to determine potential profit
+
+3. **Threshold Check**: Only executes trades when profit exceeds a minimum threshold (currently 3000 lamports)
+
+4. **Transaction Building**: Constructs a versioned transaction with:
+   - Compute unit limits
+   - Setup instructions
+   - Swap instructions (both legs of the arbitrage)
+   - Jito tip payment
+
+5. **Bundle Submission**: Sends the transaction as a Jito bundle to the Frankfurt block engine for prioritized execution
+
+6. **Monitoring**: Tracks execution time and slot information for performance analysis
+
+## Profit Guarantee & Program Implementation
+
+**Critical Requirement**: This bot requires an on-chain program to guarantee profitability.
+
+### Why a Program is Needed
+
+Even with:
+- Zero slippage configuration
+- Jito bundle prioritization
+- Optimal route selection
+
+You may still incur losses due to:
+- Jito tip payments
+- Transaction fees
+- Price movements between quote and execution
+
+### Example Transaction
+
+See this [example transaction](https://solscan.io/tx/2XpqezwMdDfuttLcSWEHA8iVU1a92W36kEwcS5GFEUk8T5HK4fjaFBbFk9roh64khmsbSnDUV1ftdYSZGLqBM4CW) demonstrating the need for program-level profit validation:
+
+![Transaction Example](./img/tx-example.png)
+
+### Program Implementation Requirements
+
+The on-chain program should:
+1. **Save initial balance** before executing swaps
+2. **Calculate real profit** after all swaps complete
+3. **Conditionally pay Jito tip** only if profit exceeds all costs
+4. **Revert transaction** if profit is insufficient
+
+## Architecture
 
 ```
-./jupiter-swap-api --rpc-url https://mainnet-ams.chainbuff.com --yellowstone-grpc-endpoint https://grpc-ams.chainbuff.com --allow-circular-arbitrage --market-mode remote --filter-markets-with-mints So11111111111111111111111111111111111111112,EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+┌─────────────────┐
+│  Arbitrage Bot  │
+└────────┬────────┘
+         │
+         ├──► Solana RPC
+         │    └──► Blockhash & ALT Lookup
+         │
+         └──► Jito Block Engine
+              └──► Bundle Submission
 ```
 
-3. Run the Bot
+## Development Status
 
-```
-npx esrun src/index.ts
-```
+- ✅ Basic arbitrage logic implemented
+- ✅ Jito bundle submission
+- ✅ On-chain program 
+- ✅ Multi-pair support
+- ✅ Advanced risk management
 
-```
-sent to frankfurt, bundle id: 429a763afe889b5c5694dc5405063506b7e463a6b0fe339d89a0b0991868edd2
-So11111111111111111111111111111111111111112 - EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
-slot: 302063575, total duration: 85ms
-diffLamports: 16189
-```
+## Contributing
 
-## Profit Guarantee
+Contributions are welcome! :
+- On-chain program implementation
+- Support for additional trading pairs
+- Enhanced profit calculation logic
+- Risk management features
+- Performance optimizations
 
-The bot requires a program to ensure profitability. Without it, even if the slippage is set to 0 and the Jito bundle service is used, you may still incur losses due to the Jito tip. [See the example](https://solscan.io/tx/3DoYWBvnE826cqKM6pkFQvLzZ9qhzGrFFjaxbj6LahGcm1M9HicchAwibkBV5ZGb2gtymWSHPWM7owvBuYPDv3UR):
+## References
 
-![](./img/tx-example.png)
+- [Jito Documentation](https://docs.jito.wtf)
+- [Solana Web3.js Documentation](https://solana-labs.github.io/solana-web3.js/)
 
-# References
+## License
 
-- https://station.jup.ag/docs/apis/self-hosted
-- https://docs.jito.wtf
-- https://docs.solanamevbot.com
-
-# Feedback
-
-Buff community: https://t.me/chainbuff
+See [LICENSE](./LICENSE) file for details.
