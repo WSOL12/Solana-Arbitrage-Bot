@@ -16,11 +16,11 @@ This bot identifies and executes arbitrage opportunities across Solana decentral
 
 ## Features
 
-- 🔄 Circular arbitrage detection and execution
-- ⚡ Jito bundle integration for fast transaction execution
-- 🎯 Zero slippage configuration support
-- 📊 Real-time profit calculation
-- ⏱️ Low-latency execution monitoring
+- Circular arbitrage detection and execution
+- Jito bundle integration for fast transaction execution
+- Zero slippage configuration support
+- Real-time profit calculation
+- Low-latency execution monitoring
 
 
 ## How It Works
