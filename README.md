@@ -2,7 +2,7 @@
 
 A high-performance arbitrage trading bot for Solana DEX markets, leveraging Jito bundles for fast transaction execution.
 
-**Telegram:** [WSOL001](https://t.me/WSOL0012)
+**Telegram:** [WSOL0012](https://t.me/WSOL0012)
 
 ## Overview
 
