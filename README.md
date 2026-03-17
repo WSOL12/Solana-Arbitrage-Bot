@@ -2,6 +2,8 @@
 
 A high-performance arbitrage trading bot for Solana DEX markets, leveraging Jito bundles for fast transaction execution.
 
+**Telegram:** [WSOL001](https://t.me/WSOL001)
+
 ## Overview
 
 This bot identifies and executes arbitrage opportunities across Solana decentralized exchanges by detecting price discrepancies between trading pairs. It uses circular arbitrage strategies (e.g., WSOL → USDC → WSOL) to capture profit from market inefficiencies.
